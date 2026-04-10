@@ -26,3 +26,12 @@ export async function createSession(staffId: string) {
 export async function destroySession() {
   const jar = await cookies();
   const id = jar.get(COOKIE)?.value;
+  if (id) await db.session.deleteMany({ where: { id } });
+  jar.delete(COOKIE);
+}
+
+export async function getStaff(): Promise<StaffUser | null> {
+  const id = (await cookies()).get(COOKIE)?.value;
+  if (!id) return null;
+  const session = await db.session.findUnique({ where: { id }, include: { staff: true } });
+  if (!session || session.expiresAt < new Date()) return null;
