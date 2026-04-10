@@ -17,3 +17,12 @@ export async function createSession(staffId: string) {
   (await cookies()).set(COOKIE, id, {
     httpOnly: true,
     sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    expires: expiresAt,
+  });
+}
+
+export async function destroySession() {
+  const jar = await cookies();
+  const id = jar.get(COOKIE)?.value;
