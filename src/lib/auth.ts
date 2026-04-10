@@ -35,3 +35,12 @@ export async function getStaff(): Promise<StaffUser | null> {
   if (!id) return null;
   const session = await db.session.findUnique({ where: { id }, include: { staff: true } });
   if (!session || session.expiresAt < new Date()) return null;
+  const { staff } = session;
+  return { id: staff.id, name: staff.name, username: staff.username, role: staff.role as Role };
+}
+
+export async function requireStaff(): Promise<StaffUser> {
+  const staff = await getStaff();
+  if (!staff) redirect("/staff/login");
+  return staff;
+}
