@@ -26,3 +26,10 @@ export const BARANGAY = {
 };
 
 export function peso(cents: number | null | undefined) {
+  if (cents == null) return "—";
+  return cents === 0 ? "Free" : `₱${(cents / 100).toFixed(2)}`;
+}
+
+export function docTitle(type: string) {
+  return DOCS[type as DocType]?.title ?? type;
+}
