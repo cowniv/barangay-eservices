@@ -7,3 +7,6 @@ export function newReference(date = new Date()): string {
   const bytes = randomBytes(6);
   const code = Array.from(bytes, (b) => ALPHABET[b % ALPHABET.length]).join("");
   return `BRGY-${date.getFullYear()}-${code}`;
+}
+
+export function newPaymentRef(): string {
