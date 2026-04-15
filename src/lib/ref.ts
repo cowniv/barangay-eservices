@@ -4,3 +4,6 @@ import { randomBytes } from "node:crypto";
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
 export function newReference(date = new Date()): string {
+  const bytes = randomBytes(6);
+  const code = Array.from(bytes, (b) => ALPHABET[b % ALPHABET.length]).join("");
+  return `BRGY-${date.getFullYear()}-${code}`;
