@@ -5,3 +5,10 @@ export const DOCS: Record<DocType, { title: string; feeCents: number; blurb: str
   clearance: {
     title: "Barangay Clearance",
     feeCents: 10000,
+    blurb: "For employment, business permits, loans and other transactions.",
+  },
+  indigency: {
+    title: "Certificate of Indigency",
+    feeCents: 0,
+    blurb: "For medical, burial or educational assistance. Free of charge.",
+  },
