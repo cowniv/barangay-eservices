@@ -12,3 +12,10 @@ export const DOCS: Record<DocType, { title: string; feeCents: number; blurb: str
     feeCents: 0,
     blurb: "For medical, burial or educational assistance. Free of charge.",
   },
+  residency: {
+    title: "Certificate of Residency",
+    feeCents: 5000,
+    blurb: "Proof that you live in the barangay, e.g. for school or bank requirements.",
+  },
+};
+
