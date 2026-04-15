@@ -19,3 +19,10 @@ export const DOCS: Record<DocType, { title: string; feeCents: number; blurb: str
   },
 };
 
+export const BARANGAY = {
+  name: "Barangay Masigla",
+  city: "Sample City",
+  captain: "Hon. Juan Dela Cruz",
+};
+
+export function peso(cents: number | null | undefined) {
