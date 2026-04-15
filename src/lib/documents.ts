@@ -12,3 +12,24 @@ export const DOCS: Record<DocType, { title: string; feeCents: number; blurb: str
     feeCents: 0,
     blurb: "For medical, burial or educational assistance. Free of charge.",
   },
+  residency: {
+    title: "Certificate of Residency",
+    feeCents: 5000,
+    blurb: "Proof that you live in the barangay, e.g. for school or bank requirements.",
+  },
+};
+
+export const BARANGAY = {
+  name: "Barangay Masigla",
+  city: "Sample City",
+  captain: "Hon. Juan Dela Cruz",
+};
+
+export function peso(cents: number | null | undefined) {
+  if (cents == null) return "—";
+  return cents === 0 ? "Free" : `₱${(cents / 100).toFixed(2)}`;
+}
+
+export function docTitle(type: string) {
+  return DOCS[type as DocType]?.title ?? type;
+}
