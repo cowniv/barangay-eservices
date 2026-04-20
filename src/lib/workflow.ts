@@ -44,3 +44,14 @@ export function actionsFor(from: string, actor: Actor): Rule[] {
 
 export const STATUS_LABEL: Record<Status, string> = {
   SUBMITTED: "Submitted",
+  UNDER_VERIFICATION: "Under verification",
+  VERIFIED: "Verified",
+  APPROVED: "Approved",
+  FEE_ASSESSED: "Awaiting payment",
+  PAID: "Paid",
+  ISSUED: "Issued",
+  REJECTED: "Rejected",
+};
+
+// Main path used for the progress stepper on the tracking page.
+export const HAPPY_PATH: Status[] = ["SUBMITTED", "UNDER_VERIFICATION", "VERIFIED", "APPROVED", "FEE_ASSESSED", "PAID", "ISSUED"];
