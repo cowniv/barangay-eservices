@@ -40,3 +40,13 @@ export async function applyTransition(m: Move, tx: Prisma.TransactionClient | ty
         fromStatus: m.from,
         toStatus: m.to,
         actorName: m.actorName,
+        actorRole: m.actor,
+        staffId: m.staffId,
+        note: m.note.trim() || rule.label,
+      },
+    });
+  };
+
+  if ("$transaction" in tx) return tx.$transaction(run);
+  return run(tx);
+}
