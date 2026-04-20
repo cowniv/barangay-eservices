@@ -10,3 +10,5 @@ export function newReference(date = new Date()): string {
 }
 
 export function newPaymentRef(): string {
+  return "PAY-" + randomBytes(5).toString("hex").toUpperCase();
+}
