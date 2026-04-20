@@ -21,3 +21,15 @@ type Rule = { from: Status; to: Status; by: Actor[]; label: string; needsNote?: 
 
 export const TRANSITIONS: Rule[] = [
   { from: "SUBMITTED", to: "UNDER_VERIFICATION", by: ["clerk"], label: "Start verification" },
+  { from: "UNDER_VERIFICATION", to: "VERIFIED", by: ["clerk"], label: "Mark verified" },
+  { from: "UNDER_VERIFICATION", to: "REJECTED", by: ["clerk"], label: "Reject", needsNote: true },
+  { from: "VERIFIED", to: "APPROVED", by: ["approver"], label: "Approve" },
+  { from: "VERIFIED", to: "REJECTED", by: ["approver"], label: "Reject", needsNote: true },
+  { from: "APPROVED", to: "FEE_ASSESSED", by: ["treasurer"], label: "Assess fee" },
+  { from: "FEE_ASSESSED", to: "PAID", by: ["citizen", "treasurer"], label: "Record payment" },
+  { from: "PAID", to: "ISSUED", by: ["clerk"], label: "Issue document" },
+];
+
+export function findRule(from: string, to: string): Rule | undefined {
+  return TRANSITIONS.find((t) => t.from === from && t.to === to);
+}
