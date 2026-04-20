@@ -30,3 +30,13 @@ export async function applyTransition(m: Move, tx: Prisma.TransactionClient | ty
 
   const run = async (t: Prisma.TransactionClient) => {
     const res = await t.request.updateMany({
+      where: { id: m.requestId, status: m.from },
+      data: { status: m.to, ...(m.extra as Prisma.RequestUpdateManyMutationInput) },
+    });
+    if (res.count !== 1) throw new TransitionError("This request was already updated by someone else. Reload and try again.");
+    await t.transition.create({
+      data: {
+        requestId: m.requestId,
+        fromStatus: m.from,
+        toStatus: m.to,
+        actorName: m.actorName,
