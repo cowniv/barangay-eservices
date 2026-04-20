@@ -33,3 +33,14 @@ export const TRANSITIONS: Rule[] = [
 export function findRule(from: string, to: string): Rule | undefined {
   return TRANSITIONS.find((t) => t.from === from && t.to === to);
 }
+
+export function canTransition(from: string, to: string, actor: Actor): boolean {
+  return !!findRule(from, to)?.by.includes(actor);
+}
+
+export function actionsFor(from: string, actor: Actor): Rule[] {
+  return TRANSITIONS.filter((t) => t.from === from && t.by.includes(actor));
+}
+
+export const STATUS_LABEL: Record<Status, string> = {
+  SUBMITTED: "Submitted",
