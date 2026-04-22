@@ -11,3 +11,7 @@ export function History({ rows, showActors = true }: { rows: Row[]; showActors?:
           <div className="text-sm font-semibold">{STATUS_LABEL[t.toStatus as Status] ?? t.toStatus}</div>
           <div className="text-sm text-slate-600">{t.note}</div>
           <div className="text-xs text-slate-400">
+            {t.createdAt.toLocaleString("en-PH", { dateStyle: "medium", timeStyle: "short" })}
+            {showActors && ` · ${t.actorName} (${t.actorRole})`}
+          </div>
+        </li>
