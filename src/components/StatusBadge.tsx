@@ -11,3 +11,7 @@ const COLORS: Record<Status, string> = {
   REJECTED: "bg-red-100 text-red-700",
 };
 
+export function StatusBadge({ status }: { status: string }) {
+  const s = status as Status;
+  return (
+    <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${COLORS[s] ?? "bg-slate-100"}`}>
