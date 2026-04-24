@@ -15,3 +15,7 @@ export function History({ rows, showActors = true }: { rows: Row[]; showActors?:
             {showActors && ` · ${t.actorName} (${t.actorRole})`}
           </div>
         </li>
+      ))}
+    </ol>
+  );
+}
