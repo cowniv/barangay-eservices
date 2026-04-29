@@ -23,3 +23,15 @@ model Session {
   staffId   String
   expiresAt DateTime
 }
+
+model Request {
+  id          String       @id @default(cuid())
+  ref         String       @unique
+  docType     String       // clearance | indigency | residency
+  status      String       @default("SUBMITTED")
+  fullName    String
+  address     String
+  birthdate   String
+  yearsOfResidency Int
+  purpose     String
+  contact     String
