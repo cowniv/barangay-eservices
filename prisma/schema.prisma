@@ -35,3 +35,15 @@ model Request {
   yearsOfResidency Int
   purpose     String
   contact     String
+  feeCents    Int?
+  paymentRef  String?
+  paidAt      DateTime?
+  issuedAt    DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  transitions Transition[]
+
+  @@index([status])
+}
+
+model Transition {
