@@ -11,3 +11,15 @@ model Staff {
   id           String       @id @default(cuid())
   username     String       @unique
   name         String
+  role         String       // clerk | approver | treasurer
+  passwordHash String
+  sessions     Session[]
+  transitions  Transition[]
+}
+
+model Session {
+  id        String   @id // random token stored in the cookie
+  staff     Staff    @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  staffId   String
+  expiresAt DateTime
+}
