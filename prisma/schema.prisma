@@ -47,3 +47,15 @@ model Request {
 }
 
 model Transition {
+  id         String   @id @default(cuid())
+  request    Request  @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  requestId  String
+  fromStatus String
+  toStatus   String
+  actorName  String   // staff name, or "Citizen" / "System"
+  actorRole  String
+  staff      Staff?   @relation(fields: [staffId], references: [id])
+  staffId    String?
+  note       String
+  createdAt  DateTime @default(now())
+}
