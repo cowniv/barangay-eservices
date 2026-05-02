@@ -18,3 +18,23 @@ const SAMPLE: { ref: string; docType: string; fullName: string; purpose: string;
   { ref: "BRGY-2026-DEMO01", docType: "clearance", fullName: "Demo Resident One", purpose: "Employment", steps: [] },
   {
     ref: "BRGY-2026-DEMO02",
+    docType: "residency",
+    fullName: "Demo Resident Two",
+    purpose: "School requirement",
+    steps: [{ to: "UNDER_VERIFICATION", by: "Demo Clerk", role: "clerk", note: "Checking residency records" }],
+  },
+  {
+    ref: "BRGY-2026-DEMO03",
+    docType: "indigency",
+    fullName: "Demo Resident Three",
+    purpose: "Medical assistance",
+    steps: [
+      { to: "UNDER_VERIFICATION", by: "Demo Clerk", role: "clerk", note: "Start verification" },
+      { to: "VERIFIED", by: "Demo Clerk", role: "clerk", note: "Household listed in demo barangay profile" },
+    ],
+  },
+  {
+    ref: "BRGY-2026-DEMO04",
+    docType: "clearance",
+    fullName: "Demo Resident Four",
+    purpose: "Business permit",
