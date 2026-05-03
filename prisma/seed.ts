@@ -77,3 +77,22 @@ async function main() {
           create: [
             { fromStatus: "NEW", toStatus: "SUBMITTED", actorName: s.fullName, actorRole: "citizen", note: "Request submitted online" },
             ...s.steps.map((st) => {
+              const row = { fromStatus: prev, toStatus: st.to, actorName: st.by, actorRole: st.role, staffId: staffId(st.by), note: st.note };
+              prev = st.to;
+              return row;
+            }),
+          ],
+        },
+      },
+    });
+  }
+
+  console.log(`Seeded ${staff.length} staff (password: ${DEMO_PASSWORD}) and ${SAMPLE.length} requests.`);
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(() => db.$disconnect());
