@@ -64,3 +64,35 @@ export async function goToTracking(formData: FormData) {
 }
 
 export async function payOnline(formData: FormData) {
+  const ref = String(formData.get("ref") ?? "");
+  const method = z.enum(["gcash", "maya", "card"]).catch("gcash").parse(formData.get("method"));
+  const req = await db.request.findUnique({ where: { ref } });
+  if (!req) redirect("/track");
+
+  try {
+    const paymentRef = newPaymentRef();
+    await applyTransition({
+      requestId: req.id,
+      from: "FEE_ASSESSED",
+      to: "PAID",
+      actor: "citizen",
+      actorName: req.fullName,
+      note: `Paid online via ${method.toUpperCase()} (mock) · ${paymentRef}`,
+      extra: { paymentRef, paidAt: new Date() },
+    });
+  } catch (e) {
+    if (!(e instanceof TransitionError)) throw e;
+  }
+  revalidatePath(`/track/${ref}`);
+  redirect(`/track/${ref}`);
+}
+
+// ---------- Staff auth ----------
+
+// Real hash of a throwaway value, so unknown usernames still pay the bcrypt cost.
+const DUMMY_HASH = bcrypt.hashSync("not-a-real-password", 10);
+
+const loginSchema = z.object({ username: z.string().trim().min(1), password: z.string().min(1) });
+
+export async function login(_prev: FormState, formData: FormData): Promise<FormState> {
+  const parsed = loginSchema.safeParse(Object.fromEntries(formData));
