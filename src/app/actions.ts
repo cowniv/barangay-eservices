@@ -31,3 +31,36 @@ export async function submitRequest(_prev: FormState, formData: FormData): Promi
   const parsed = requestSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) return { fieldErrors: parsed.error.flatten().fieldErrors };
 
+  const data = parsed.data;
+  if (data.docType === "residency" && data.yearsOfResidency < 1) {
+    return { fieldErrors: { yearsOfResidency: ["Residency certificates need at least 1 year of residence"] } };
+  }
+
+  let ref = "";
+  for (let attempt = 0; attempt < 5 && !ref; attempt++) {
+    const candidate = newReference();
+    const clash = await db.request.findUnique({ where: { ref: candidate }, select: { id: true } });
+    if (!clash) ref = candidate;
+  }
+  if (!ref) return { error: "Could not generate a reference number. Please try again." };
+
+  await db.request.create({
+    data: {
+      ...data,
+      ref,
+      transitions: {
+        create: { fromStatus: "NEW", toStatus: "SUBMITTED", actorName: data.fullName, actorRole: "citizen", note: "Request submitted online" },
+      },
+    },
+  });
+  redirect(`/track/${ref}?new=1`);
+}
+
+// ---------- Citizen: track + mock payment ----------
+
+export async function goToTracking(formData: FormData) {
+  const ref = String(formData.get("ref") ?? "").trim().toUpperCase();
+  if (ref) redirect(`/track/${encodeURIComponent(ref)}`);
+}
+
+export async function payOnline(formData: FormData) {
