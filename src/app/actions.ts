@@ -96,3 +96,36 @@ const loginSchema = z.object({ username: z.string().trim().min(1), password: z.s
 
 export async function login(_prev: FormState, formData: FormData): Promise<FormState> {
   const parsed = loginSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { error: "Enter your username and password." };
+
+  const staff = await db.staff.findUnique({ where: { username: parsed.data.username } });
+  // compare against a dummy hash when the user doesn't exist so timing is similar
+  const ok = await bcrypt.compare(parsed.data.password, staff?.passwordHash ?? DUMMY_HASH);
+  if (!staff || !ok) return { error: "Wrong username or password." };
+
+  await createSession(staff.id);
+  redirect("/staff");
+}
+
+export async function logout() {
+  await destroySession();
+  redirect("/staff/login");
+}
+
+// ---------- Staff: move a request ----------
+
+const moveSchema = z.object({
+  requestId: z.string().min(1),
+  from: z.string().min(1),
+  to: z.string().min(1),
+  note: z.string().trim().max(300).default(""),
+});
+
+export async function moveRequest(_prev: FormState, formData: FormData): Promise<FormState> {
+  const staff = await requireStaff();
+  const parsed = moveSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { error: "Invalid action." };
+  const { requestId, from, to, note } = parsed.data;
+
+  const req = await db.request.findUnique({ where: { id: requestId } });
+  if (!req) return { error: "Request not found." };
