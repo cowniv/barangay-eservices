@@ -38,3 +38,22 @@ const SAMPLE: { ref: string; docType: string; fullName: string; purpose: string;
     docType: "clearance",
     fullName: "Demo Resident Four",
     purpose: "Business permit",
+    feeCents: 10000,
+    steps: [
+      { to: "UNDER_VERIFICATION", by: "Demo Clerk", role: "clerk", note: "Start verification" },
+      { to: "VERIFIED", by: "Demo Clerk", role: "clerk", note: "No demo blotter record" },
+      { to: "APPROVED", by: "Demo Approver", role: "approver", note: "Approve" },
+      { to: "FEE_ASSESSED", by: "Demo Treasurer", role: "treasurer", note: "Fee assessed: ₱100.00" },
+    ],
+  },
+];
+
+async function main() {
+  await db.transition.deleteMany();
+  await db.request.deleteMany();
+  await db.session.deleteMany();
+  await db.staff.deleteMany();
+
+  const hash = await bcrypt.hash(DEMO_PASSWORD, 10);
+  const staff = await Promise.all(STAFF.map((s) => db.staff.create({ data: { ...s, passwordHash: hash } })));
+  const staffId = (name: string) => staff.find((s) => s.name === name)?.id;
