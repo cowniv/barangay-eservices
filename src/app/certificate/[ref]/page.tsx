@@ -1,0 +1,15 @@
+import { headers } from "next/headers";
+import { notFound } from "next/navigation";
+import QRCode from "qrcode";
+import { PrintButton } from "./PrintButton";
+import { db } from "@/lib/db";
+import { BARANGAY, docTitle } from "@/lib/documents";
+
+async function baseUrl() {
+  if (process.env.APP_URL) return process.env.APP_URL.replace(/\/$/, "");
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
+  const proto = h.get("x-forwarded-proto") ?? "http";
+  return `${proto}://${host}`;
+}
+
