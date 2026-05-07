@@ -129,3 +129,35 @@ export async function moveRequest(_prev: FormState, formData: FormData): Promise
 
   const req = await db.request.findUnique({ where: { id: requestId } });
   if (!req) return { error: "Request not found." };
+
+  const base = { requestId, from, to, actor: staff.role, actorName: staff.name, staffId: staff.id };
+
+  try {
+    if (to === "FEE_ASSESSED") {
+      // Fee comes from the document table, never from the form.
+      const fee = DOCS[req.docType as DocType].feeCents;
+      await db.$transaction(async (tx) => {
+        await applyTransition({ ...base, note: note || `Fee assessed: ₱${(fee / 100).toFixed(2)}`, extra: { feeCents: fee } }, tx);
+        if (fee === 0) {
+          await applyTransition(
+            { ...base, from: "FEE_ASSESSED", to: "PAID", note: "Fee waived (free document)", extra: { paidAt: new Date(), paymentRef: "WAIVED" } },
+            tx,
+          );
+        }
+      });
+    } else if (to === "PAID") {
+      await applyTransition({ ...base, note: note || "Paid over the counter", extra: { paidAt: new Date(), paymentRef: newPaymentRef() } });
+    } else if (to === "ISSUED") {
+      await applyTransition({ ...base, note, extra: { issuedAt: new Date() } });
+    } else {
+      await applyTransition({ ...base, note });
+    }
+  } catch (e) {
+    if (e instanceof TransitionError) return { error: e.message };
+    throw e;
+  }
+
+  revalidatePath("/staff");
+  revalidatePath(`/staff/requests/${requestId}`);
+  return {};
+}
