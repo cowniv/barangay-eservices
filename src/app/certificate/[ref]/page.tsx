@@ -42,3 +42,17 @@ export default async function CertificatePage({ params }: { params: Promise<{ re
           <div className="text-sm">{BARANGAY.city}</div>
           <div className="text-lg font-bold uppercase">{BARANGAY.name}</div>
           <div className="text-sm">Office of the Punong Barangay</div>
+        </header>
+        <h1 className="mt-10 text-center text-2xl font-bold uppercase tracking-widest">{docTitle(req.docType)}</h1>
+
+        <p className="mt-8 font-semibold">TO WHOM IT MAY CONCERN:</p>
+        <p className="mt-4 indent-12 leading-8 text-justify">
+          {BODY[req.docType](req.fullName.toUpperCase(), req.address, req.purpose, req.yearsOfResidency)}
+        </p>
+        <p className="mt-4 indent-12 leading-8">Issued this {issued} at {BARANGAY.name}, {BARANGAY.city}.</p>
+
+        <div className="mt-16 flex items-end justify-between">
+          <div className="text-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={qr} alt="QR code to verify this certificate" width={120} height={120} />
+            <div className="mt-1 font-mono text-xs">{req.ref}</div>
