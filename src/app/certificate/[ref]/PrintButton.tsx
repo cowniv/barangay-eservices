@@ -6,3 +6,4 @@ export function PrintButton() {
       Print
     </button>
   );
+}
