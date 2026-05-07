@@ -27,3 +27,18 @@ export default async function CertificatePage({ params }: { params: Promise<{ re
   const req = await db.request.findUnique({ where: { ref } });
   if (!req || req.status !== "ISSUED" || !req.issuedAt) notFound();
 
+  const verifyUrl = `${await baseUrl()}/verify/${req.ref}`;
+  const qr = await QRCode.toDataURL(verifyUrl, { margin: 1, width: 160 });
+  const issued = req.issuedAt.toLocaleDateString("en-PH", { dateStyle: "long" });
+
+  return (
+    <div className="mx-auto max-w-[800px]">
+      <div className="no-print mb-4 flex justify-end">
+        <PrintButton />
+      </div>
+      <article className="border border-slate-300 bg-white p-12 font-serif shadow-sm print:border-0 print:shadow-none">
+        <header className="text-center">
+          <div className="text-sm">Republic of the Philippines</div>
+          <div className="text-sm">{BARANGAY.city}</div>
+          <div className="text-lg font-bold uppercase">{BARANGAY.name}</div>
+          <div className="text-sm">Office of the Punong Barangay</div>
