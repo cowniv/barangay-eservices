@@ -56,3 +56,17 @@ export default async function CertificatePage({ params }: { params: Promise<{ re
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={qr} alt="QR code to verify this certificate" width={120} height={120} />
             <div className="mt-1 font-mono text-xs">{req.ref}</div>
+            <div className="text-[10px] text-slate-500">Scan to verify</div>
+          </div>
+          <div className="text-center">
+            <div className="w-56 border-t border-slate-800 pt-1 font-bold">{BARANGAY.captain}</div>
+            <div className="text-sm">Punong Barangay</div>
+          </div>
+        </div>
+        <p className="mt-10 text-[10px] text-slate-500">
+          OR/Payment: {req.paymentRef} · Not valid without the barangay dry seal · Sample document for a student project
+        </p>
+      </article>
+    </div>
+  );
+}
