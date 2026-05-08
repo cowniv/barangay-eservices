@@ -17,3 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="text-lg font-bold text-brand">
               {BARANGAY.name} <span className="font-normal text-slate-500">e-Services</span>
             </Link>
+            <div className="flex gap-4 text-sm font-medium">
+              <Link href="/request" className="hover:text-brand">Request</Link>
+              <Link href="/track" className="hover:text-brand">Track</Link>
+              <Link href="/staff" className="hover:text-brand">Staff</Link>
+            </div>
+          </nav>
