@@ -24,3 +24,16 @@ export function RequestForm({ initialType }: { initialType: DocType }) {
         <legend className="label">Document</legend>
         <div className="grid gap-2 sm:grid-cols-3">
           {DOC_TYPES.map((t) => (
+            <label key={t} className="flex cursor-pointer items-start gap-2 rounded-lg border border-slate-200 p-3 text-sm has-[:checked]:border-brand has-[:checked]:bg-brand-light">
+              <input type="radio" name="docType" value={t} defaultChecked={t === initialType} className="mt-1" />
+              <span>
+                <span className="block font-semibold">{DOCS[t].title}</span>
+                <span className="text-slate-500">{peso(DOCS[t].feeCents)}</span>
+              </span>
+            </label>
+          ))}
+        </div>
+        {fe?.docType?.map((e) => <p key={e} className="error">{e}</p>)}
+      </fieldset>
+
+      <Field name="fullName" label="Full name" errors={fe}>
