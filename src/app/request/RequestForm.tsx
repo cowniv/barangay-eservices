@@ -37,3 +37,16 @@ export function RequestForm({ initialType }: { initialType: DocType }) {
       </fieldset>
 
       <Field name="fullName" label="Full name" errors={fe}>
+        <input id="fullName" name="fullName" className="input" placeholder="Demo Resident" />
+      </Field>
+      <Field name="address" label="Address in the barangay" errors={fe}>
+        <input id="address" name="address" className="input" placeholder="Demo Address, Purok 2" />
+      </Field>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field name="birthdate" label="Birthdate" errors={fe}>
+          <input id="birthdate" name="birthdate" type="date" className="input" />
+        </Field>
+        <Field name="yearsOfResidency" label="Years living here" errors={fe}>
+          <input id="yearsOfResidency" name="yearsOfResidency" type="number" min={0} defaultValue={1} className="input" />
+        </Field>
+      </div>
