@@ -28,3 +28,13 @@ export default function Home() {
           {DOC_TYPES.map((t) => (
             <Link key={t} href={`/request?type=${t}`} className="card transition hover:border-brand">
               <div className="font-semibold">{DOCS[t].title}</div>
+              <p className="mt-1 text-sm text-slate-600">{DOCS[t].blurb}</p>
+              <div className="mt-3 text-sm font-semibold text-brand">{peso(DOCS[t].feeCents)}</div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="mb-4 text-lg font-semibold">How it works</h2>
+        <ol className="flex flex-wrap gap-2 text-sm">
