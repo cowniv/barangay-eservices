@@ -14,3 +14,6 @@ export default async function RequestPage({ searchParams }: { searchParams: Prom
         document.
       </p>
       <RequestForm initialType={initial} />
+    </div>
+  );
+}
