@@ -38,3 +38,13 @@ export default function Home() {
       <section>
         <h2 className="mb-4 text-lg font-semibold">How it works</h2>
         <ol className="flex flex-wrap gap-2 text-sm">
+          {STEPS.map((s, i) => (
+            <li key={s} className="rounded-full bg-brand-light px-3 py-1 text-brand">
+              {i + 1}. {s}
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+  );
+}
