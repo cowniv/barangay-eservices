@@ -10,3 +10,7 @@ export default async function RequestPage({ searchParams }: { searchParams: Prom
     <div className="mx-auto max-w-2xl">
       <h1 className="text-2xl font-bold">Request a document</h1>
       <p className="mt-1 text-sm text-slate-600">
+        You&apos;ll get a reference number right after submitting. Keep it, you&apos;ll need it to track and claim your
+        document.
+      </p>
+      <RequestForm initialType={initial} />
