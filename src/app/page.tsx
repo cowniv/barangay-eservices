@@ -18,3 +18,13 @@ export default function Home() {
           <form action={goToTracking} className="flex gap-2">
             <input name="ref" placeholder="BRGY-2026-XXXXXX" className="input w-52 text-slate-800" />
             <button className="btn-ghost">Track</button>
+          </form>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="mb-4 text-lg font-semibold">Available documents</h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {DOC_TYPES.map((t) => (
+            <Link key={t} href={`/request?type=${t}`} className="card transition hover:border-brand">
+              <div className="font-semibold">{DOCS[t].title}</div>
