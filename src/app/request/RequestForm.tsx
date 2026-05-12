@@ -50,3 +50,15 @@ export function RequestForm({ initialType }: { initialType: DocType }) {
           <input id="yearsOfResidency" name="yearsOfResidency" type="number" min={0} defaultValue={1} className="input" />
         </Field>
       </div>
+      <Field name="purpose" label="Purpose" errors={fe}>
+        <input id="purpose" name="purpose" className="input" placeholder="e.g. Employment requirement" />
+      </Field>
+      <Field name="contact" label="Mobile number or email" errors={fe}>
+        <input id="contact" name="contact" className="input" placeholder="09XXXXXXXXX" />
+      </Field>
+
+      {state.error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{state.error}</p>}
+      <button className="btn w-full" disabled={pending}>{pending ? "Submitting…" : "Submit request"}</button>
+    </form>
+  );
+}
