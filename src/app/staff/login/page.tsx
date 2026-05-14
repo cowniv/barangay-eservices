@@ -8,3 +8,8 @@ export default function LoginPage() {
   return (
     <div className="mx-auto max-w-sm">
       <h1 className="text-2xl font-bold">Staff sign in</h1>
+      <form action={action} className="card mt-6 space-y-4">
+        <div>
+          <label htmlFor="username" className="label">Username</label>
+          <input id="username" name="username" autoComplete="username" className="input" />
+        </div>
