@@ -18,3 +18,8 @@ export default function LoginPage() {
           <input id="password" name="password" type="password" autoComplete="current-password" className="input" />
         </div>
         {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+        <button className="btn w-full" disabled={pending}>{pending ? "Signing in…" : "Sign in"}</button>
+      </form>
+    </div>
+  );
+}
