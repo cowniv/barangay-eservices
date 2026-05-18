@@ -26,3 +26,10 @@ export function MoveForm({ requestId, from, actions }: { requestId: string; from
             disabled={pending}
             className={a.to === "REJECTED" ? "btn bg-accent" : "btn"}
           >
+            {a.label}
+          </button>
+        ))}
+      </div>
+    </form>
+  );
+}
