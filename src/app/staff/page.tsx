@@ -32,3 +32,20 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
         <div>
           <h1 className="text-2xl font-bold">Requests</h1>
           <p className="text-sm text-slate-600">
+            Signed in as <strong>{staff.name}</strong> · <span className="capitalize">{staff.role}</span>
+          </p>
+        </div>
+        <form action={logout}>
+          <button className="btn-ghost">Sign out</button>
+        </form>
+      </div>
+
+      <div className="flex flex-wrap gap-2 text-sm">
+        <Link href="/staff" className={`rounded-full px-3 py-1 ${!status && mine !== "0" ? "bg-brand text-white" : "bg-white border"}`}>My queue</Link>
+        <Link href="/staff?mine=0" className={`rounded-full px-3 py-1 ${mine === "0" && !status ? "bg-brand text-white" : "bg-white border"}`}>All</Link>
+        {STATUSES.map((s) => (
+          <Link key={s} href={`/staff?status=${s}`} className={`rounded-full px-3 py-1 ${status === s ? "bg-brand text-white" : "bg-white border"}`}>
+            {STATUS_LABEL[s]} ({countOf(s)})
+          </Link>
+        ))}
+      </div>
