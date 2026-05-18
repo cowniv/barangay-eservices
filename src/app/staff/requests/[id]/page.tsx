@@ -52,3 +52,16 @@ export default async function StaffRequest({ params }: { params: Promise<{ id: s
         </div>
       </div>
 
+      <aside className="card h-fit space-y-3">
+        <h2 className="font-semibold">Actions</h2>
+        {actions.length === 0 ? (
+          <p className="text-sm text-slate-500">
+            Nothing for a <span className="capitalize">{staff.role}</span> to do at this step.
+          </p>
+        ) : (
+          <MoveForm requestId={req.id} from={req.status} actions={actions.map((a) => ({ to: a.to, label: a.label, needsNote: !!a.needsNote }))} />
+        )}
+      </aside>
+    </div>
+  );
+}
