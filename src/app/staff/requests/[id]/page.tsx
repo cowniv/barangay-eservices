@@ -39,3 +39,16 @@ export default async function StaffRequest({ params }: { params: Promise<{ id: s
             <dt className="text-slate-500">Purpose</dt><dd>{req.purpose}</dd>
             <dt className="text-slate-500">Contact</dt><dd>{req.contact}</dd>
             <dt className="text-slate-500">Standard fee</dt><dd>{peso(DOCS[req.docType as DocType]?.feeCents)}</dd>
+            <dt className="text-slate-500">Assessed fee</dt><dd>{peso(req.feeCents)}</dd>
+            <dt className="text-slate-500">Payment ref</dt><dd>{req.paymentRef ?? "—"}</dd>
+          </dl>
+          {req.status === "ISSUED" && (
+            <Link href={`/certificate/${req.ref}`} className="btn mt-5">Open certificate</Link>
+          )}
+        </div>
+        <div className="card">
+          <h2 className="mb-4 font-semibold">Audit trail</h2>
+          <History rows={req.transitions} />
+        </div>
+      </div>
+
