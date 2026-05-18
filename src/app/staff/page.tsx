@@ -66,3 +66,19 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
               <tr key={r.id} className="border-t border-slate-100 hover:bg-slate-50">
                 <td className="px-4 py-3 font-mono">
                   <Link href={`/staff/requests/${r.id}`} className="text-brand hover:underline">{r.ref}</Link>
+                </td>
+                <td className="px-4 py-3">{docTitle(r.docType)}</td>
+                <td className="px-4 py-3">{r.fullName}</td>
+                <td className="px-4 py-3 text-slate-500">{r.createdAt.toLocaleDateString("en-PH")}</td>
+                <td className="px-4 py-3"><StatusBadge status={r.status} /></td>
+              </tr>
+            ))}
+            {requests.length === 0 && (
+              <tr><td colSpan={5} className="px-4 py-10 text-center text-slate-500">Nothing here. 🎉</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
