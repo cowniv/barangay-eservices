@@ -19,3 +19,10 @@ export function MoveForm({ requestId, from, actions }: { requestId: string; from
       {state.error && <p className="text-sm text-red-600">{state.error}</p>}
       <div className="flex flex-col gap-2">
         {actions.map((a) => (
+          <button
+            key={a.to}
+            name="to"
+            value={a.to}
+            disabled={pending}
+            className={a.to === "REJECTED" ? "btn bg-accent" : "btn"}
+          >
