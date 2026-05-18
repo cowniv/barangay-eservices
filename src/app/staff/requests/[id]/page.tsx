@@ -12,3 +12,16 @@ export default async function StaffRequest({ params }: { params: Promise<{ id: s
   const staff = await requireStaff();
   const { id } = await params;
   const req = await db.request.findUnique({
+    where: { id },
+    include: { transitions: { orderBy: { createdAt: "asc" } } },
+  });
+  if (!req) notFound();
+
+  const actions = actionsFor(req.status, staff.role);
+
+  return (
+    <div className="grid gap-6 md:grid-cols-[1fr_320px]">
+      <div className="space-y-6">
+        <Link href="/staff" className="text-sm text-brand hover:underline">← Back to requests</Link>
+        <div className="card">
+          <div className="flex flex-wrap items-start justify-between gap-2">
