@@ -49,3 +49,20 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
           </Link>
         ))}
       </div>
+
+      <div className="card overflow-x-auto p-0">
+        <table className="w-full text-left text-sm">
+          <thead className="bg-slate-50 text-xs uppercase text-slate-500">
+            <tr>
+              <th className="px-4 py-3">Reference</th>
+              <th className="px-4 py-3">Document</th>
+              <th className="px-4 py-3">Applicant</th>
+              <th className="px-4 py-3">Filed</th>
+              <th className="px-4 py-3">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {requests.map((r) => (
+              <tr key={r.id} className="border-t border-slate-100 hover:bg-slate-50">
+                <td className="px-4 py-3 font-mono">
+                  <Link href={`/staff/requests/${r.id}`} className="text-brand hover:underline">{r.ref}</Link>
