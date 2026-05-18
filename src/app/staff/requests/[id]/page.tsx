@@ -25,3 +25,17 @@ export default async function StaffRequest({ params }: { params: Promise<{ id: s
         <Link href="/staff" className="text-sm text-brand hover:underline">← Back to requests</Link>
         <div className="card">
           <div className="flex flex-wrap items-start justify-between gap-2">
+            <div>
+              <div className="font-mono text-sm text-slate-500">{req.ref}</div>
+              <h1 className="text-xl font-bold">{docTitle(req.docType)}</h1>
+            </div>
+            <StatusBadge status={req.status} />
+          </div>
+          <dl className="mt-5 grid grid-cols-[140px_1fr] gap-2 text-sm">
+            <dt className="text-slate-500">Applicant</dt><dd>{req.fullName}</dd>
+            <dt className="text-slate-500">Address</dt><dd>{req.address}</dd>
+            <dt className="text-slate-500">Birthdate</dt><dd>{req.birthdate}</dd>
+            <dt className="text-slate-500">Years residing</dt><dd>{req.yearsOfResidency}</dd>
+            <dt className="text-slate-500">Purpose</dt><dd>{req.purpose}</dd>
+            <dt className="text-slate-500">Contact</dt><dd>{req.contact}</dd>
+            <dt className="text-slate-500">Standard fee</dt><dd>{peso(DOCS[req.docType as DocType]?.feeCents)}</dd>
