@@ -12,3 +12,10 @@ export function MoveForm({ requestId, from, actions }: { requestId: string; from
     <form action={action} className="space-y-3">
       <input type="hidden" name="requestId" value={requestId} />
       <input type="hidden" name="from" value={from} />
+      <div>
+        <label htmlFor="note" className="label">Note</label>
+        <textarea id="note" name="note" rows={3} maxLength={300} className="input" placeholder="Optional, required when rejecting" />
+      </div>
+      {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+      <div className="flex flex-col gap-2">
+        {actions.map((a) => (
