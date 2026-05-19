@@ -34,3 +34,20 @@ export default async function TrackRef({
 
       <div className="card">
         <div className="flex flex-wrap items-start justify-between gap-2">
+          <div>
+            <div className="font-mono text-sm text-slate-500">{req.ref}</div>
+            <h1 className="text-xl font-bold">{docTitle(req.docType)}</h1>
+            <div className="text-sm text-slate-600">for {req.fullName}</div>
+          </div>
+          <StatusBadge status={req.status} />
+        </div>
+
+        {req.status !== "REJECTED" && (
+          <ol className="mt-5 grid grid-cols-7 gap-1">
+            {HAPPY_PATH.map((s, i) => (
+              <li key={s} title={STATUS_LABEL[s]} className={`h-2 rounded-full ${i <= stepIndex ? "bg-brand" : "bg-slate-200"}`} />
+            ))}
+          </ol>
+        )}
+
+        <dl className="mt-5 grid grid-cols-2 gap-3 text-sm">
