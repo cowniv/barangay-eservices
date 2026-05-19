@@ -39,3 +39,29 @@ export default async function StaffRequest({ params }: { params: Promise<{ id: s
             <dt className="text-slate-500">Purpose</dt><dd>{req.purpose}</dd>
             <dt className="text-slate-500">Contact</dt><dd>{req.contact}</dd>
             <dt className="text-slate-500">Standard fee</dt><dd>{peso(DOCS[req.docType as DocType]?.feeCents)}</dd>
+            <dt className="text-slate-500">Assessed fee</dt><dd>{peso(req.feeCents)}</dd>
+            <dt className="text-slate-500">Payment ref</dt><dd>{req.paymentRef ?? "—"}</dd>
+          </dl>
+          {req.status === "ISSUED" && (
+            <Link href={`/certificate/${req.ref}`} className="btn mt-5">Open certificate</Link>
+          )}
+        </div>
+        <div className="card">
+          <h2 className="mb-4 font-semibold">Audit trail</h2>
+          <History rows={req.transitions} />
+        </div>
+      </div>
+
+      <aside className="card h-fit space-y-3">
+        <h2 className="font-semibold">Actions</h2>
+        {actions.length === 0 ? (
+          <p className="text-sm text-slate-500">
+            Nothing for a <span className="capitalize">{staff.role}</span> to do at this step.
+          </p>
+        ) : (
+          <MoveForm requestId={req.id} from={req.status} actions={actions.map((a) => ({ to: a.to, label: a.label, needsNote: !!a.needsNote }))} />
+        )}
+      </aside>
+    </div>
+  );
+}
