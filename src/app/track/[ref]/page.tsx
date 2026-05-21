@@ -51,3 +51,21 @@ export default async function TrackRef({
         )}
 
         <dl className="mt-5 grid grid-cols-2 gap-3 text-sm">
+          <dt className="text-slate-500">Fee</dt>
+          <dd>{peso(req.feeCents)}</dd>
+          <dt className="text-slate-500">Payment</dt>
+          <dd>{req.paymentRef ?? "—"}</dd>
+        </dl>
+
+        {req.status === "FEE_ASSESSED" && (
+          <form action={payOnline} className="mt-5 rounded-lg bg-orange-50 p-4">
+            <input type="hidden" name="ref" value={req.ref} />
+            <div className="mb-2 text-sm font-semibold">Pay {peso(req.feeCents)} online</div>
+            <p className="mb-3 text-xs text-slate-600">This is a mock payment for the demo. No real money moves.</p>
+            <div className="flex flex-wrap gap-2">
+              <select name="method" className="input w-auto">
+                <option value="gcash">GCash</option>
+                <option value="maya">Maya</option>
+                <option value="card">Debit/Credit card</option>
+              </select>
+              <button className="btn">Pay now</button>
