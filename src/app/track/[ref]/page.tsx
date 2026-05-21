@@ -69,3 +69,20 @@ export default async function TrackRef({
                 <option value="card">Debit/Credit card</option>
               </select>
               <button className="btn">Pay now</button>
+            </div>
+          </form>
+        )}
+
+        {req.status === "ISSUED" && (
+          <Link href={`/certificate/${req.ref}`} className="btn mt-5">View &amp; print certificate</Link>
+        )}
+      </div>
+
+      <div className="card">
+        <h2 className="mb-4 font-semibold">History</h2>
+        {/* citizens see the steps and notes, not staff names */}
+        <History rows={req.transitions} showActors={false} />
+      </div>
+    </div>
+  );
+}
