@@ -34,3 +34,11 @@ export default async function VerifyPage({ params }: { params: Promise<{ ref: st
             <dd>{BARANGAY.name}</dd>
           </dl>
         ) : (
+          <p className="mt-4 text-sm text-slate-600">
+            This reference number doesn&apos;t match an issued document. It may be fake, mistyped, or still being processed.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
