@@ -11,3 +11,6 @@ export default function TrackPage() {
         <input id="ref" name="ref" required placeholder="BRGY-2026-XXXXXX" className="input uppercase" />
         <button className="btn w-full">Track</button>
       </form>
+    </div>
+  );
+}
