@@ -25,3 +25,12 @@ export default async function VerifyPage({ params }: { params: Promise<{ ref: st
         {valid && req ? (
           <dl className="mt-5 grid grid-cols-2 gap-2 text-left text-sm">
             <dt className="text-slate-500">Document</dt>
+            <dd>{docTitle(req.docType)}</dd>
+            <dt className="text-slate-500">Issued to</dt>
+            <dd>{maskName(req.fullName)}</dd>
+            <dt className="text-slate-500">Issued on</dt>
+            <dd>{req.issuedAt!.toLocaleDateString("en-PH", { dateStyle: "long" })}</dd>
+            <dt className="text-slate-500">Issued by</dt>
+            <dd>{BARANGAY.name}</dd>
+          </dl>
+        ) : (
