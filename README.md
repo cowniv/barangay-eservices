@@ -8,3 +8,12 @@ Getting a barangay clearance can mean going back two or three times just to ask 
 
 ### Features
 - Citizen request form for **Barangay Clearance**, **Certificate of Indigency** and **Certificate of Residency**, validated with **Zod** in a server action
+- Reference numbers like `BRGY-2026-7KQ2MX` (no 0/O/1/I so they're easy to read out loud)
+- Tracking page by reference number: progress bar, history, fee, payment status
+- Explicit state machine in `src/lib/workflow.ts`: `SUBMITTED → UNDER_VERIFICATION → VERIFIED → APPROVED → FEE_ASSESSED → PAID → ISSUED` (+ `REJECTED`)
+  - each transition lists which role may do it (clerk, approver, treasurer, citizen)
+  - enforced on the server in one function (`applyTransition`); the UI only shows buttons you're allowed to press
+  - update uses `where: { status: from }` so two staff clicking at once can't both move it
+  - every move is logged with actor, role, note and time (rejections need a note)
+- Fee assessment comes from the document table, not the form. Indigency is free, so it's waived and skips straight to Paid
+- Mock online payment (GCash / Maya / card) on the tracking page, or over-the-counter by the treasurer
