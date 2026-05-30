@@ -17,3 +17,13 @@ Getting a barangay clearance can mean going back two or three times just to ask 
   - every move is logged with actor, role, note and time (rejections need a note)
 - Fee assessment comes from the document table, not the form. Indigency is free, so it's waived and skips straight to Paid
 - Mock online payment (GCash / Maya / card) on the tracking page, or over-the-counter by the treasurer
+- Issuance generates a printable certificate page with a QR code (`qrcode` package) pointing to `/verify/[ref]`
+- Public verify page shows valid/invalid with a masked name
+- Staff login with **bcryptjs** and a cookie session stored in the database (httpOnly, 8 hours)
+- Staff dashboard with "my queue" (only the steps your role can act on) and status filters
+- Seed script with 3 demo staff accounts and 4 requests at different steps
+
+### Tech
+Next.js 16 (App Router, Server Components, Server Actions) · React 19 · TypeScript · Prisma + SQLite · Zod · Tailwind CSS v4 · bcryptjs · qrcode
+
+### Run
