@@ -27,3 +27,12 @@ Getting a barangay clearance can mean going back two or three times just to ask 
 Next.js 16 (App Router, Server Components, Server Actions) · React 19 · TypeScript · Prisma + SQLite · Zod · Tailwind CSS v4 · bcryptjs · qrcode
 
 ### Run
+```bash
+npm install
+cp .env.example .env
+npm run db:push
+npm run db:seed
+npm run dev
+```
+Staff sign-in is at `/staff/login`. Usernames are `clerk`, `approver` and `treasurer`; the password is whatever you set as `SEED_STAFF_PASSWORD` in `.env`. Try tracking `BRGY-2026-DEMO04`, it's waiting for payment.
+
