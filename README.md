@@ -36,3 +36,12 @@ npm run dev
 ```
 Staff sign-in is at `/staff/login`. Usernames are `clerk`, `approver` and `treasurer`; the password is whatever you set as `SEED_STAFF_PASSWORD` in `.env`. Try tracking `BRGY-2026-DEMO04`, it's waiting for payment.
 
+All names and the barangay itself are made up for the demo.
+
+### What I practiced
+- Modeling a real workflow as a state machine instead of scattered `if` checks
+- Role-based authorization done on the server, not just hidden buttons
+- Audit trails and why every status change needs an actor and a reason
+- Optimistic concurrency with a conditional update
+- Cookie sessions and password hashing without an auth library
+- Generating QR codes on the server and making a page that prints cleanly
